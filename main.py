@@ -1,6 +1,4 @@
-def main():
-    print("Hello from proyecto-backend!")
-
-
-if __name__ == "__main__":
-    main()
+from fastapi import FastAPI
+from src.core.api import api
+app=FastAPI()
+app.include_router(api)
