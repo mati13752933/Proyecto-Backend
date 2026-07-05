@@ -12,3 +12,5 @@ class User(Base):
     codsis: Mapped[str] = mapped_column(unique=True)
     role: Mapped[TypeRoles] = mapped_column(Enum(TypeRoles), default=TypeRoles.USER)
     area_id: Mapped[int | None] = mapped_column(ForeignKey("areas.id"), nullable=True)
+    stage_id: Mapped[int | None] = mapped_column(ForeignKey("stages.id"), nullable=True)
+    sigue_postulando: Mapped[bool] = mapped_column(default=True)
