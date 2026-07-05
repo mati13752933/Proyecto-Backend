@@ -4,13 +4,18 @@ from src.core.response_model import IResponse
 from src.modules.area.services import AreaService
 from src.modules.session.schemas import SessionCreate, SessionPatch
 from src.modules.session.services import SessionService
+from src.modules.stage.services import StageService
 class SessionController:
     @staticmethod
     async def create_session(payload: SessionCreate, session: SessionDep):
-        area=await AreaService.get_by_id(payload.area_id, session)
-        if not area:
-            raise HTTPException(status_code=404, detail="area not found")
-        new_session=await SessionService.create_session(payload, session)
+        stage=await StageService.get_by_id(payload.stage_id, session)
+        if not stage:
+            raise HTTPException(status_code=404, detail="stage not found")
+        if payload.area_id is not None:
+            area=await AreaService.get_by_id(payload.area_id, session)
+            if not area:
+                raise HTTPException(status_code=404, detail="area not found")
+        new_session = await SessionService.create_session(payload, session)
         return IResponse(code=201, message="Session created", data=new_session)
     @staticmethod
     async def get_all_sessions(session: SessionDep, limit: int, offset: int):
