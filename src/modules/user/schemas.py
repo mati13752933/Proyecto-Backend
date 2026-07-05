@@ -12,10 +12,15 @@ class UserResponse(UserBase):
     id: int
     role: TypeRoles
     area_id: int | None=None
+    stage_id: int | None=None
+    sigue_postulando: bool
 class UserPatch(BaseModel):
     email: EmailStr | None=None
-    name: str | None= None
+    name: str | None=None
     last_name: str | None=None
     codsis: str | None=None
     role: TypeRoles | None=None
-    area_id: int | None= None
+    area_id: int | None=None
+    stage_id: int | None=None
+    sigue_postulando: bool | None=None
+    
